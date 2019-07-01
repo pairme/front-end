@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import ChatContainer from './components/ChatContainer'
 import styled from 'styled-components'
 import io from "socket.io-client";
 
+import ChatContainer from './components/ChatContainer'
+import EmailInput from './components/EmailInput'
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -19,25 +20,31 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-  const [messages, setMessages] = useState([{ message: 'Welcome to PairMe', id: 1 }])
-
+  const [socket] = useState(io.connect("http://localhost:5000"))
+  const [userEmail, setUserEmail] = useState('')
+  const [emailRecieved, setEmailRecieved] = useState(false)
+  const [messages, setMessages] = useState([{ message: `Welcome to PairMe!`, id: 1 }])
   useEffect(() => {
-    let socket = io("http://localhost:5000");
-    socket.on('connect', () => {
-      console.log('socket connected')
-      console.log(`socket id: ${socket.id}`)
-      socket.on('message', (msg) => setMessages([...messages, msg]))
-    })
-  })
+    console.log(socket.id)
+    socket.on('message', (msg) => setMessages([...messages, msg]))
+  }, [socket])
   const submitMessage = (e, message) => {
     e.preventDefault()
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 }
-    // socket.emit('message', newMessage)
+    socket.emit('message', newMessage)
   }
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
-      <ChatContainer submitMessage={submitMessage} messages={messages} />
+      {!emailRecieved ?
+        <EmailInput
+          email={userEmail}
+          setEmail={setUserEmail}
+          setEmailRecieved={setEmailRecieved}
+        />
+        :
+        <ChatContainer submitMessage={submitMessage} messages={messages} />}
+
     </StyledApp>
   );
 }

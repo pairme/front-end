@@ -11,9 +11,12 @@ const StyledInput = styled.form`
   flex-flow: row;
   input {
     width: 70%;
+    border: 1px solid black;
+    border-right: 0px;
   }
   button {
     width: 30%;
+    border: 1px solid black;
   }
 `
 

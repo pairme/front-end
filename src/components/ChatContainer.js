@@ -6,6 +6,7 @@ import ChatInput from './ChatInput.js'
 
 const StyledChat = styled.div`
   border: 1px solid black;
+  border-bottom: 0px;
   width: 60%;
   height: 500px;
   margin-top: 30px;
