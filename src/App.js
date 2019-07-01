@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import socket from "./socket";
 
@@ -19,20 +19,20 @@ const StyledApp = styled.div`
   }
 `;
 
+
 const App = () => {
 
-  
   const [userEmail, setUserEmail] = useState('')
   const [emailRecieved, setEmailRecieved] = useState(false)
   const [messages, setMessages] = useState([])
-  useEffect(() => {
-    console.log(socket.id);
-    socket.on("message", msg => setMessages([...messages, msg]));
-  }, [messages]);
+
+  socket.on("message", msg => setMessages([...messages, msg]))
+
   const submitMessage = (e, message) => {
     e.preventDefault();
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
     socket.emit("message", newMessage);
+
   };
   return (
     <StyledApp className="App">
@@ -43,8 +43,8 @@ const App = () => {
           setEmail={setUserEmail}
           setEmailRecieved={setEmailRecieved}
         />)
-        :(
-        <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />)}
+        : (
+          <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />)}
     </StyledApp>
   );
 };
