@@ -12,11 +12,11 @@ const StyledChat = styled.div`
 `;
 
 const ChatContainer = () => {
-  const messages = ['hi', 'hello', 'lets pair program', 'sounds good', 'https://us04web.zoom.us/j/553930217']
+  const messages = [{message:'hi', id:1}, {message:'hello, wanna pair program?', id:2}, {message:'fo sho', id:3}, {message:'lessgitit', id:4}, {message:'https://us04web.zoom.us/j/553930217', id:5}]
   return (
     <>
       <StyledChat>
-        {messages.map(msg => <Message msg={msg} />)}
+        {messages.map(msg => <Message msg={msg} key={msg.id} />)}
       </StyledChat>
       <ChatInput />
     </>

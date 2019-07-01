@@ -8,8 +8,9 @@ const StyledMessage = styled.li`
 `
 
 const Message = ({msg}) => {
+  const {message, id} = msg
   return (
-    <StyledMessage>{msg}</StyledMessage>
+    <StyledMessage>{message}</StyledMessage>
   )
 }
 

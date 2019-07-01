@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ChatContainer from './components/ChatContainer'
 import styled from 'styled-components'
+import io from "socket.io-client";
+
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -16,6 +18,15 @@ const StyledApp = styled.div`
 `;
 
 function App() {
+  useEffect(() => {
+    console.log("socket connecting");
+    /*
+    init our socket
+    socket will trigger socket.on("connection") on the backend!
+    */
+    const socket = io.connect("http://localhost:5000");
+	
+})
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
