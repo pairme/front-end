@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const StyledInput = styled.div`
+const StyledInput = styled.form`
   width: 100%;
   font-size: 1rem;
-  width: 50%;
+  width: 60%;
   height: 40px;
-  margin-top: 20px;
   box-sizing: border-box;
   display: flex; 
   flex-flow: row;
@@ -18,11 +17,19 @@ const StyledInput = styled.div`
   }
 `
 
-const ChatInput = ({ msg }) => {
+const ChatInput = ({ msg, submitMessage }) => {
+  const [message, setMessage] = useState('')
   return (
-    <StyledInput>
-      <input type="text" placeholder="Type your message..." />
-      <button>Send</button>
+    <StyledInput onSubmit={(e) => {
+      submitMessage(e, message)
+      setMessage('')
+    }}>
+      <input
+        onChange={(e) => setMessage(e.target.value)}
+        type="text"
+        placeholder="Type your message..."
+        value={message} />
+      <button type="submit">Send</button>
     </StyledInput>
   )
 }
