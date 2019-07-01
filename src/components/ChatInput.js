@@ -1,16 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledMessage = styled.li`
+const StyledInput = styled.input`
   width: 100%;
   list-style-type: none;
   font-size: 1rem;
+  width: 50%;
+  height: 40px;
+  margin-top: 20px;
 `
 
-const Message = ({msg}) => {
+const ChatInput = ({msg}) => {
   return (
-    <StyledMessage>{msg}</StyledMessage>
+    <StyledInput>{msg}</StyledInput>
   )
 }
 
-export default Message
+export default ChatInput
