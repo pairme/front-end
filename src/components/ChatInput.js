@@ -20,19 +20,19 @@ const StyledInput = styled.form`
   }
 `
 
-const ChatInput = ({ msg, submitMessage }) => {
+const ChatInput = ({submitMessage }) => {
   const [message, setMessage] = useState('')
+  const messageHandler = (e) => {
+    submitMessage(e, message)
+    setMessage('')
+  }
   return (
-    <StyledInput onSubmit={(e) => {
-      submitMessage(e, message)
-      setMessage('')
-    }}>
+    <StyledInput onSubmit={messageHandler}>
       <input
-        onChange={(e) => setMessage(e.target.value)}
-        type="text"
+        onChange={e => setMessage(e.target.value)}
         placeholder="Type your message..."
         value={message} />
-      <button type="submit">Send</button>
+      <button type="submit" onClick={messageHandler}>Send</button>
     </StyledInput>
   )
 }
