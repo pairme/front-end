@@ -8,7 +8,7 @@ const StyledChat = styled.div`
   border: 1px solid black;
   width: 50%;
   height: 500px;
-  margin-top: 100px;
+  margin-top: 30px;
 `;
 
 const ChatContainer = () => {

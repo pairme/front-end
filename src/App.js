@@ -7,11 +7,18 @@ const StyledApp = styled.div`
   width: 1000px;
   display: flex;
   justify-content: center;
+  flex-flow: row wrap;
+  h1 {
+    width: 50%;
+    font-size: 4rem;
+    margin-bottom: 0;
+  }
 `;
 
 function App() {
   return (
     <StyledApp className="App">
+      <h1>PairMe</h1>
       <ChatContainer />
     </StyledApp>
   );
