@@ -42,8 +42,8 @@ const App = () => {
           email={userEmail}
           setEmail={setUserEmail}
           setEmailRecieved={setEmailRecieved}
-        />
-        :
+        />)
+        :(
         <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />)}
     </StyledApp>
   );
