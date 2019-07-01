@@ -18,7 +18,7 @@ const StyledEmailInput = styled.form`
 
 const EmailInput = ({ email, setEmail, setEmailRecieved }) => (
   <StyledEmailInput onSubmit={() => setEmailRecieved(true)}>
-    <input onChange={(e) => setEmail(e.target.value)} value={email} />
+    <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Enter Your Email to Join the Queue!"/>
     <button type="submit">Enter Queue!</button>
   </StyledEmailInput>)
 
