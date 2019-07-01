@@ -23,7 +23,7 @@ const App = () => {
   const [socket] = useState(io.connect("http://localhost:5000"))
   const [userEmail, setUserEmail] = useState('')
   const [emailRecieved, setEmailRecieved] = useState(false)
-  const [messages, setMessages] = useState([{ message: `Welcome to PairMe!`, id: 1 }])
+  const [messages, setMessages] = useState([])
   useEffect(() => {
     console.log(socket.id)
     socket.on('message', (msg) => setMessages([...messages, msg]))
@@ -43,7 +43,7 @@ const App = () => {
           setEmailRecieved={setEmailRecieved}
         />
         :
-        <ChatContainer submitMessage={submitMessage} messages={messages} />}
+        <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />}
 
     </StyledApp>
   );

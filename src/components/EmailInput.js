@@ -18,8 +18,11 @@ const StyledEmailInput = styled.form`
 
 const EmailInput = ({ email, setEmail, setEmailRecieved }) => (
   <StyledEmailInput onSubmit={() => setEmailRecieved(true)}>
-    <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Enter Your Email to Join the Queue!"/>
-    <button type="submit">Enter Queue!</button>
+    <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder="Enter Your Email to Join the Queue!" />
+    <button onClick={(e)=>{
+      e.preventDefault()
+      setEmailRecieved(true)
+    }}>Enter Queue!</button>
   </StyledEmailInput>)
 
 export default EmailInput
