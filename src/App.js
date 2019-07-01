@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'
-import io from "socket.io-client";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import socket from "./socket";
 
-import ChatContainer from './components/ChatContainer'
-import EmailInput from './components/EmailInput'
+import ChatContainer from "./components/ChatContainer";
+import EmailInput from "./components/EmailInput";
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -20,33 +20,35 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-  const [socket] = useState(io.connect("http://localhost:5000"))
-  const [userEmail, setUserEmail] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(false)
-  const [messages, setMessages] = useState([{ message: `Welcome to PairMe!`, id: 1 }])
+  // const [socket] = useState(io.connect("http://localhost:5000"))
+  const [userEmail, setUserEmail] = useState("");
+  const [emailRecieved, setEmailRecieved] = useState(false);
+  const [messages, setMessages] = useState([
+    { message: `Welcome to PairMe!`, id: 1 }
+  ]);
   useEffect(() => {
-    console.log(socket.id)
-    socket.on('message', (msg) => setMessages([...messages, msg]))
-  }, [socket])
+    console.log(socket.id);
+    socket.on("message", msg => setMessages([...messages, msg]));
+  }, [messages]);
   const submitMessage = (e, message) => {
-    e.preventDefault()
-    const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 }
-    socket.emit('message', newMessage)
-  }
+    e.preventDefault();
+    const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
+    socket.emit("message", newMessage);
+  };
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
-      {!emailRecieved ?
+      {!emailRecieved ? (
         <EmailInput
           email={userEmail}
           setEmail={setUserEmail}
           setEmailRecieved={setEmailRecieved}
         />
-        :
-        <ChatContainer submitMessage={submitMessage} messages={messages} />}
-
+      ) : (
+        <ChatContainer submitMessage={submitMessage} messages={messages} />
+      )}
     </StyledApp>
   );
-}
+};
 
 export default App;
