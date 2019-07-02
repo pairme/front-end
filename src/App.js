@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import socket from "./socket";
@@ -41,7 +41,7 @@ const App = () => {
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
     socket.emit("message", newMessage);
   };
-  const makePair = (e, url, socketid) => {
+  const makePair = (e) => {
     e.preventDefault();
     const payload = { url: userMeetingUrl, socketid: socketID }
     axios
