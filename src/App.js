@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from 'axios';
-import socket from "./socket";
+import io from "socket.io-client";
 
 import ChatContainer from "./components/ChatContainer";
 import EmailInput from "./components/EmailInput";
-
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -21,39 +19,23 @@ const StyledApp = styled.div`
   }
 `;
 
-const url = 'https://herokucarlo.herokuapp.com/getuserinfo'
-
 const App = () => {
-
-  const [userEmail, setUserEmail] = useState('')
-  const [userName, setUserName] = useState('')
-  const [userMeetingUrl, setUserMeetingUrl] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(false)
-  const [messages, setMessages] = useState([])
-
-  socket.on("message", msg => setMessages([...messages, msg]))
-  socket.on("socketid", socketid => console.log(socketid, "socketid"));
-  socket.on("connections count", connectionsCount =>
-    console.log(connectionsCount)
-  );
+  const [socket] = useState(io.connect("http://localhost:5000"));
+  const [userEmail, setUserEmail] = useState("");
+  const [emailRecieved, setEmailRecieved] = useState(false);
+  const [messages, setMessages] = useState([
+    { message: `Welcome to PairMe!`, id: 1 }
+  ]);
+  const [totalUsers, setTotalUsers] = useState(0);
+  useEffect(() => {
+    console.log(socket.id);
+    socket.on("message", msg => setMessages([...messages, msg]));
+  }, [messages, socket]);
   const submitMessage = (e, message) => {
     e.preventDefault();
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
     socket.emit("message", newMessage);
   };
-  const zoomEmailReq = () => {
-    axios.post(url, { email: userEmail })
-      .then((res) => {
-        // handle success
-        setUserName(`${res.data.response.first_name} ${res.data.response.last_name}`)
-        setUserMeetingUrl(`${res.data.response.personal_meeting_url}`)
-        setEmailRecieved(true)
-      })
-      .catch((err) => {
-        // handle error
-        console.log(err);
-      })
-  }
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
@@ -61,10 +43,15 @@ const App = () => {
         <EmailInput
           email={userEmail}
           setEmail={setUserEmail}
-          zoomEmailReq={zoomEmailReq}
-        />)
-        : (
-          <ChatContainer submitMessage={submitMessage} userName={userName} messages={messages} />)}
+          setEmailRecieved={setEmailRecieved}
+        />
+      ) : (
+        <ChatContainer
+          submitMessage={submitMessage}
+          messages={messages}
+          totalUsers={totalUsers}
+        />
+      )}
     </StyledApp>
   );
 };
