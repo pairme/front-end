@@ -4,19 +4,31 @@ import styled from 'styled-components'
 const StyledInput = styled.form`
   width: 100%;
   font-size: 1rem;
-  width: 60%;
-  height: 40px;
+  width: 96%;
+  height: 8%;
   box-sizing: border-box;
   display: flex; 
   flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
   input {
     width: 70%;
-    border: 1px solid black;
+    height: 60%;
+    box-sizing: border-box;
+    font-size: 1rem;
+    &:focus {
+      outline: none;
+    }
   }
   button {
-    width: 15%;
-    border: 1px solid black;
+    width: 12%;
+    height: 60%;
+    background-color: #b6eb1a;
     border-left: 0px;
+    font-size: 1rem;
+    &:focus {
+      outline: none;
+    }
   }
 `
 
@@ -32,8 +44,8 @@ const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers }) => {
         onChange={e => setMessage(e.target.value)}
         placeholder="Type your message..."
         value={message} />
-      <button type="submit" >Send</button>
-      {buttonDisabled || totalUsers<2 ? <button type="button" disabled>Pair</button> : <button type="button" onClick={makePair} >Pair</button>}
+      <button type="submit" >CHAT</button>
+      {buttonDisabled || totalUsers < 2 ? <button type="button" disabled>PAIR</button> : <button type="button" onClick={makePair} >PAIR</button>}
 
 
     </StyledInput>
