@@ -20,7 +20,7 @@ const StyledInput = styled.form`
   }
 `
 
-const ChatInput = ({submitMessage }) => {
+const ChatInput = ({submitMessage, makePair }) => {
   const [message, setMessage] = useState('')
   const messageHandler = (e) => {
     submitMessage(e, message)
@@ -33,7 +33,7 @@ const ChatInput = ({submitMessage }) => {
         placeholder="Type your message..."
         value={message} />
       <button type="submit" >Send</button>
-      <button type="button" >Pair</button>
+      <button type="button" onClick={makePair}>Pair</button>
     </StyledInput>
   )
 }

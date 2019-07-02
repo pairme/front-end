@@ -20,18 +20,19 @@ const StyledApp = styled.div`
   }
 `;
 
-const url = "https://herokucarlo.herokuapp.com/getuserinfo";
+const url = "https://herokucarlo.herokuapp.com/";
 
 const App = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [userMeetingUrl, setUserMeetingUrl] = useState("");
-  const [emailRecieved, setEmailRecieved] = useState(true);
+  const [emailRecieved, setEmailRecieved] = useState(false);
   const [messages, setMessages] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [socketID, setSocketID] = useState('');
 
   socket.on("message", msg => setMessages([...messages, msg]));
-  socket.on("socketid", socketid => console.log(socketid, "socketid"));
+  socket.on("socketid", socketid => setSocketID(socketid));
   socket.on("connections count", connectionsCount =>
     setTotalUsers(connectionsCount)
   );
@@ -40,9 +41,15 @@ const App = () => {
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
     socket.emit("message", newMessage);
   };
+  const makePair = (e, url, socketid) => {
+    e.preventDefault();
+    const payload = { url: userMeetingUrl, socketid: socketID }
+    axios
+      .post(`${url}makepair`, { payload }).then(res => console.log(res.status)).catch(err => console.log(err))
+  };
   const zoomEmailReq = () => {
     axios
-      .post(url, { email: userEmail })
+      .post(`${url}getuserinfo`, { email: userEmail })
       .then(res => {
         // handle success
         setUserName(
@@ -66,13 +73,14 @@ const App = () => {
           zoomEmailReq={zoomEmailReq}
         />
       ) : (
-        <ChatContainer
-          submitMessage={submitMessage}
-          userName={userName}
-          messages={messages}
-          totalUsers={totalUsers}
-        />
-      )}
+          <ChatContainer
+            submitMessage={submitMessage}
+            userName={userName}
+            messages={messages}
+            totalUsers={totalUsers}
+            makePair={makePair}
+          />
+        )}
     </StyledApp>
   );
 };

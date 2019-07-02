@@ -16,21 +16,23 @@ const StyledChat = styled.div`
     list-style-type: none;
     font-size: 1rem;
   }
+  .users {
+    width: 100%;
+  }
 `;
 
-const ChatContainer = ({ messages, submitMessage, userName, totalUsers }) => {
+const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair }) => {
   return (
     <>
+
       <StyledChat>
-        <div>
-          <p>{totalUsers}</p>
-        </div>
+        <div className="users">{totalUsers} Currently Connected</div>
         <li>Welcome to PairMe {userName ? `${userName}!` : "user!"}</li>
         {messages.map(msg => (
           <Message msg={msg} key={msg.id} />
         ))}
       </StyledChat>
-      <ChatInput submitMessage={submitMessage} />
+      <ChatInput submitMessage={submitMessage} makePair={makePair} />
     </>
   );
 };
