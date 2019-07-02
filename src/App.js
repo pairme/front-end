@@ -56,7 +56,7 @@ const App = () => {
   };
   return (
     <StyledApp className="App">
-      <h1>PairMe</h1>
+
       {!loggedIn ? (
         <UserInfoInput
           setUserName={setUserName}
@@ -66,15 +66,18 @@ const App = () => {
           setLoggedIn={setLoggedIn}
         />
       ) : (
-          <ChatContainer
-            socket={socket}
-            submitMessage={submitMessage}
-            userName={userName}
-            messages={messages}
-            totalUsers={totalUsers}
-            makePair={makePair}
-            buttonDisabled={buttonDisabled}
-          />
+          <>
+            <h1>PairMe</h1>
+            <ChatContainer
+              socket={socket}
+              submitMessage={submitMessage}
+              userName={userName}
+              messages={messages}
+              totalUsers={totalUsers}
+              makePair={makePair}
+              buttonDisabled={buttonDisabled}
+            />
+          </>
         )}
     </StyledApp>
   );
