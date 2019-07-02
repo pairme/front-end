@@ -26,11 +26,10 @@ const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair
   useEffect(() => {
     socket.emit('add connection', true)
     console.log('chat container rerendered!!!')
-  }, [])
+  }, [socket])
 
   return (
     <>
-
       <StyledChat>
         <div className="users">{totalUsers} Currently Connected</div>
         <li>Welcome to PairMe {userName ? `${userName}!` : "user!"}</li>

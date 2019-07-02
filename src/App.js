@@ -4,7 +4,7 @@ import axios from "axios";
 import socket from "./socket";
 
 import ChatContainer from "./components/ChatContainer";
-import EmailInput from "./components/EmailInput";
+import UserInfoInput from "./components/UserInfoInput";
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -20,13 +20,12 @@ const StyledApp = styled.div`
   }
 `;
 
-const serverURL = "https://herokucarlo.herokuapp.com/";
+const serverURL = process.env.NODE_ENV === "production" ? `https://herokucarlo.herokuapp.com/` : `http://localhost:5000/`
 
 const App = () => {
-  const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [userMeetingUrl, setUserMeetingUrl] = useState("");
-  const [emailRecieved, setEmailRecieved] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [messages, setMessages] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [socketID, setSocketID] = useState('');
@@ -46,36 +45,22 @@ const App = () => {
     e.preventDefault();
     const payload = { url: userMeetingUrl, socketid: socketID }
     axios
-      .post(`${serverURL}makepair`,payload).then(res => console.log(res.status)).catch(err => console.log(err))
-  };
-  const zoomEmailReq = () => {
-    axios
-      .post(`${serverURL}getuserinfo`, { email: userEmail })
-      .then(res => {
-        // handle success
-        setUserName(
-          `${res.data.response.first_name} ${res.data.response.last_name}`
-        );
-        setUserMeetingUrl(`${res.data.response.personal_meeting_url}`);
-        setEmailRecieved(true);
-      })
-      .catch(err => {
-        // handle error
-        console.log(err);
-      });
+      .post(`${serverURL}makepair`, payload).then(res => console.log(res.status)).catch(err => console.log(err))
   };
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
-      {!emailRecieved ? (
-        <EmailInput
-          email={userEmail}
-          setEmail={setUserEmail}
-          zoomEmailReq={zoomEmailReq}
+      {!loggedIn ? (
+        <UserInfoInput
+          setUserName={setUserName}
+          setUserMeetingUrl={setUserMeetingUrl}
+          userName={userName}
+          userMeetingUrl={userMeetingUrl}
+          setLoggedIn={setLoggedIn}
         />
       ) : (
           <ChatContainer
-          socket={socket}
+            socket={socket}
             submitMessage={submitMessage}
             userName={userName}
             messages={messages}
