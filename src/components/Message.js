@@ -11,10 +11,10 @@ const StyledMessage = styled.li`
   }
 `
 
-const Message = ({msg, userName}) => {
-  const {message} = msg
+const Message = ({msg}) => {
+  const {message, name} = msg
   return (
-    <StyledMessage><span className="username">{userName}:</span> {message}</StyledMessage>
+    <StyledMessage><span className="username">{name}:</span> {message}</StyledMessage>
   )
 }
 

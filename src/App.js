@@ -40,7 +40,7 @@ const App = () => {
   );
   const submitMessage = (e, message) => {
     e.preventDefault();
-    const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
+    const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1, name: userName };
     socket.emit("message", newMessage);
   };
   const makePair = (e) => {
