@@ -57,7 +57,16 @@ const UserInfoInput = ({
   setUserMeetingUrl,
   setLoggedIn
 }) => (
-  <StyledUserInfoInput onSubmit={() => setLoggedIn(true)}>
+  <StyledUserInfoInput
+    onSubmit={() => {
+      if (!userName || !userMeetingUrl) {
+        alert("one of the fields cannot be empty");
+        setLoggedIn(false);
+      } else {
+        setLoggedIn(true);
+      }
+    }}
+  >
     <label>Choose A NickName</label>
     <input
       onChange={e => setUserName(e.target.value)}
@@ -71,12 +80,7 @@ const UserInfoInput = ({
       value={userMeetingUrl}
       type="text"
     />
-    <input
-      type="submit"
-      className="button"
-      onClick={() => setLoggedIn(true)}
-      value=""
-    />
+    <input type="submit" className="button" value="" />
   </StyledUserInfoInput>
 );
 
