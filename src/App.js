@@ -5,6 +5,7 @@ import socket from "./socket";
 import ChatContainer from "./components/ChatContainer";
 import EmailInput from "./components/EmailInput";
 
+
 const StyledApp = styled.div`
   margin: 0 auto;
   width: 100%;
@@ -23,7 +24,7 @@ const StyledApp = styled.div`
 const App = () => {
 
   const [userEmail, setUserEmail] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(false)
+  const [emailRecieved, setEmailRecieved] = useState(true)
   const [messages, setMessages] = useState([])
 
   socket.on("message", msg => setMessages([...messages, msg]))

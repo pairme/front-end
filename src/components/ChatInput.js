@@ -32,7 +32,7 @@ const ChatInput = ({submitMessage }) => {
         onChange={e => setMessage(e.target.value)}
         placeholder="Type your message..."
         value={message} />
-      <button type="submit" onClick={messageHandler}>Send</button>
+      <button type="submit" >Send</button>
     </StyledInput>
   )
 }
