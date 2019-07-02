@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Fade } from "react-reveal";
 
 const StyledUserInfoInput = styled.form`
   width: 60%;
@@ -12,18 +13,18 @@ const StyledUserInfoInput = styled.form`
   justify-content: center;
   position: relative;
   padding-top: 100px;
-  .error{
+  .error {
     background-color: red;
     width: 60%;
     height: 100px;
     background-color: lightpink;
-    color:red;
-    opacity: .5;
+    color: red;
+    opacity: 0.5;
     font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    position:absolute;
+    position: absolute;
     top: 0;
   }
   label {
@@ -73,18 +74,23 @@ const UserInfoInput = ({
   setUserMeetingUrl,
   setLoggedIn
 }) => {
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   return (
     <StyledUserInfoInput
-      onSubmit={() => {
+      onSubmit={e => {
+        e.preventDefault();
         if (!userName || !userMeetingUrl) {
           setLoggedIn(false);
+          setError(true);
         } else {
           setLoggedIn(true);
         }
       }}
     >
-      <div className="error">Please fill in both fields</div>
+      <Fade top when={error}>
+        <div className="error">Please fill in both fields</div>
+      </Fade>
+
       <label>Choose A NickName</label>
       <input
         onChange={e => setUserName(e.target.value)}
@@ -100,7 +106,7 @@ const UserInfoInput = ({
       />
       <input type="submit" className="button" value="" />
     </StyledUserInfoInput>
-  )
+  );
 };
 
 export default UserInfoInput;
