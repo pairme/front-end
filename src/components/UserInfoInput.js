@@ -30,7 +30,7 @@ const StyledUserInfoInput = styled.form`
 const UserInfoInput = ({ userName, setUserName, userMeetingUrl, setUserMeetingUrl, setLoggedIn }) => (
   <StyledUserInfoInput onSubmit={()=>setLoggedIn(true)}>
     <input onChange={(e) => setUserName(e.target.value)} value={userName} placeholder="Enter Your Nickname!" />
-    <input onChange={(e) => setUserMeetingUrl(e.target.value)} value={userMeetingUrl} placeholder="What is your meeting (zoom,hangouts,skype etc... url?)" />
+    <input onChange={(e) => setUserMeetingUrl(e.target.value)} value={userMeetingUrl} placeholder="Enter Meeting url" />
     <p className="button" onClick={()=>setLoggedIn(true)}>Enter Queue!</p>
   </StyledUserInfoInput>)
 
