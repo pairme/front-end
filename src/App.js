@@ -75,6 +75,7 @@ const App = () => {
         />
       ) : (
           <ChatContainer
+          socket={socket}
             submitMessage={submitMessage}
             userName={userName}
             messages={messages}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import Message from "./Message";
@@ -21,7 +21,13 @@ const StyledChat = styled.div`
   }
 `;
 
-const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair }) => {
+const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair, socket }) => {
+
+  useEffect(() => {
+    socket.emit('add connection', true)
+    console.log('chat container rerendered!!!')
+  }, [])
+
   return (
     <>
 
