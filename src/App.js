@@ -9,10 +9,12 @@ import UserInfoInput from "./components/UserInfoInput";
 const StyledApp = styled.div`
   margin: 0 auto;
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   flex-flow: row wrap;
   box-sizing: border-box;
+  background-color: #37346e;
   h1 {
     width: 60%;
     font-size: 4rem;

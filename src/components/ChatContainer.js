@@ -11,6 +11,7 @@ const StyledChat = styled.div`
   height: 500px;
   margin-top: 30px;
   box-sizing: border-box;
+  background-color: white;
   li {
     width: 100%;
     list-style-type: none;
