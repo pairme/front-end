@@ -21,12 +21,12 @@ const StyledChat = styled.div`
   }
 `;
 
-const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair, socket, buttonDisabled, totalUsers }) => {
+const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, buttonDisabled, totalUsers }) => {
 
   useEffect(() => {
     socket.emit('add connection', userName)
     console.log('chat container rerendered!!!')
-  }, [socket])
+  }, [socket, userName])
 
   return (
     <>

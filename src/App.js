@@ -74,7 +74,6 @@ const App = () => {
             totalUsers={totalUsers}
             makePair={makePair}
             buttonDisabled={buttonDisabled}
-            totalUsers={totalUsers}
           />
         )}
     </StyledApp>
