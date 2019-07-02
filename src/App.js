@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from 'axios';
+import axios from "axios";
 import socket from "./socket";
 
 import ChatContainer from "./components/ChatContainer";
 import EmailInput from "./components/EmailInput";
-
 
 const StyledApp = styled.div`
   margin: 0 auto;
@@ -21,20 +20,20 @@ const StyledApp = styled.div`
   }
 `;
 
-const url = 'https://herokucarlo.herokuapp.com/getuserinfo'
+const url = "https://herokucarlo.herokuapp.com/getuserinfo";
 
 const App = () => {
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userMeetingUrl, setUserMeetingUrl] = useState("");
+  const [emailRecieved, setEmailRecieved] = useState(true);
+  const [messages, setMessages] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
 
-  const [userEmail, setUserEmail] = useState('')
-  const [userName, setUserName] = useState('')
-  const [userMeetingUrl, setUserMeetingUrl] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(true)
-  const [messages, setMessages] = useState([])
-
-  socket.on("message", msg => setMessages([...messages, msg]))
+  socket.on("message", msg => setMessages([...messages, msg]));
   socket.on("socketid", socketid => console.log(socketid, "socketid"));
   socket.on("connections count", connectionsCount =>
-    console.log(connectionsCount)
+    setTotalUsers(connectionsCount)
   );
   const submitMessage = (e, message) => {
     e.preventDefault();
@@ -42,18 +41,21 @@ const App = () => {
     socket.emit("message", newMessage);
   };
   const zoomEmailReq = () => {
-    axios.post(url, { email: userEmail })
-      .then((res) => {
+    axios
+      .post(url, { email: userEmail })
+      .then(res => {
         // handle success
-        setUserName(`${res.data.response.first_name} ${res.data.response.last_name}`)
-        setUserMeetingUrl(`${res.data.response.personal_meeting_url}`)
-        setEmailRecieved(true)
+        setUserName(
+          `${res.data.response.first_name} ${res.data.response.last_name}`
+        );
+        setUserMeetingUrl(`${res.data.response.personal_meeting_url}`);
+        setEmailRecieved(true);
       })
-      .catch((err) => {
+      .catch(err => {
         // handle error
         console.log(err);
-      })
-  }
+      });
+  };
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
@@ -62,9 +64,15 @@ const App = () => {
           email={userEmail}
           setEmail={setUserEmail}
           zoomEmailReq={zoomEmailReq}
-        />)
-        : (
-          <ChatContainer submitMessage={submitMessage} userName={userName} messages={messages} />)}
+        />
+      ) : (
+        <ChatContainer
+          submitMessage={submitMessage}
+          userName={userName}
+          messages={messages}
+          totalUsers={totalUsers}
+        />
+      )}
     </StyledApp>
   );
 };
