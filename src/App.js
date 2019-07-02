@@ -20,7 +20,7 @@ const StyledApp = styled.div`
   }
 `;
 
-const url = "https://herokucarlo.herokuapp.com/";
+const serverURL = "https://herokucarlo.herokuapp.com/";
 
 const App = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -46,11 +46,11 @@ const App = () => {
     e.preventDefault();
     const payload = { url: userMeetingUrl, socketid: socketID }
     axios
-      .post(`${url}makepair`, { payload }).then(res => console.log(res.status)).catch(err => console.log(err))
+      .post(`${serverURL}makepair`,payload).then(res => console.log(res.status)).catch(err => console.log(err))
   };
   const zoomEmailReq = () => {
     axios
-      .post(`${url}getuserinfo`, { email: userEmail })
+      .post(`${serverURL}getuserinfo`, { email: userEmail })
       .then(res => {
         // handle success
         setUserName(
