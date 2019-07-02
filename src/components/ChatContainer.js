@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-import Message from './Message'
-import ChatInput from './ChatInput.js'
+import Message from "./Message";
+import ChatInput from "./ChatInput.js";
 
 const StyledChat = styled.div`
   border: 1px solid black;
@@ -18,17 +18,21 @@ const StyledChat = styled.div`
   }
 `;
 
-const ChatContainer = ({ messages, submitMessage, userName }) => {
-
+const ChatContainer = ({ messages, submitMessage, userName, totalUsers }) => {
   return (
     <>
       <StyledChat>
+        <div>
+          <p>{totalUsers}</p>
+        </div>
         <li>Welcome to PairMe {userName ? `${userName}!` : "user!"}</li>
-        {messages.map(msg => <Message msg={msg} key={msg.id} />)}
+        {messages.map(msg => (
+          <Message msg={msg} key={msg.id} />
+        ))}
       </StyledChat>
       <ChatInput submitMessage={submitMessage} />
     </>
-  )
-}
+  );
+};
 
-export default ChatContainer
+export default ChatContainer;
