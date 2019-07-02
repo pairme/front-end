@@ -28,7 +28,7 @@ const App = () => {
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
   const [userMeetingUrl, setUserMeetingUrl] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(false)
+  const [emailRecieved, setEmailRecieved] = useState(true)
   const [messages, setMessages] = useState([])
 
   socket.on("message", msg => setMessages([...messages, msg]))
