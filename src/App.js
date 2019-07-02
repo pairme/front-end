@@ -33,6 +33,7 @@ const App = () => {
 
   socket.on("message", msg => setMessages([...messages, msg]));
   socket.on("socketid", socketid => setSocketID(socketid));
+  socket.on("private message", msg => setMessages([...messages, msg]));
   socket.on("connections count", connectionsCount =>
     setTotalUsers(connectionsCount)
   );
