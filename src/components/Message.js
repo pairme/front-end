@@ -10,11 +10,28 @@ const StyledMessage = styled.li`
     font-weight: bold;
   }
 `
+const StyledAdminMessage = styled.li`
+  width: 100%;
+  color: red;
+  list-style-type: none;
+  font-size: 1rem;
+  text-align: center;
+`
 
 const Message = ({ msg }) => {
   const { message, name } = msg
   return (
-    <StyledMessage><span className="username">{name ? name : 'User'}:</span> {message}</StyledMessage>
+    <>
+      {name ? 
+        <StyledMessage>
+          <span className="username">{name}:</span> 
+          {message}
+        </StyledMessage>
+        :
+        <StyledAdminMessage>{message}</StyledAdminMessage>
+      }
+      
+    </>
   )
 }
 
