@@ -32,7 +32,10 @@ const App = () => {
   const [messages, setMessages] = useState([])
 
   socket.on("message", msg => setMessages([...messages, msg]))
-
+  socket.on("socketid", socketid => console.log(socketid, "socketid"));
+  socket.on("connections count", connectionsCount =>
+    console.log(connectionsCount)
+  );
   const submitMessage = (e, message) => {
     e.preventDefault();
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
