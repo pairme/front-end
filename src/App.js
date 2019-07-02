@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from 'axios';
 import socket from "./socket";
@@ -26,7 +26,8 @@ const url = 'https://herokucarlo.herokuapp.com/getuserinfo'
 const App = () => {
 
   const [userEmail, setUserEmail] = useState('')
-  const [userData, setUserData] = useState({})
+  const [userName, setUserName] = useState('')
+  const [userMeetingUrl, setUserMeetingUrl] = useState('')
   const [emailRecieved, setEmailRecieved] = useState(false)
   const [messages, setMessages] = useState([])
 
@@ -38,13 +39,12 @@ const App = () => {
     socket.emit("message", newMessage);
   };
   const zoomEmailReq = () => {
-    axios.post(url, userEmail)
+    axios.post(url, { email: userEmail })
       .then((res) => {
         // handle success
-        console.log(res.data);
-        // setUserData({...res.data})
-        // setEmailRecieved(true)
-        // console.log(userData)
+        setUserName(`${res.data.response.first_name} ${res.data.response.last_name}`)
+        setUserMeetingUrl(`${res.data.response.personal_meeting_url}`)
+        setEmailRecieved(true)
       })
       .catch((err) => {
         // handle error
@@ -61,7 +61,7 @@ const App = () => {
           zoomEmailReq={zoomEmailReq}
         />)
         : (
-          <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />)}
+          <ChatContainer submitMessage={submitMessage} userName={userName} messages={messages} />)}
     </StyledApp>
   );
 };

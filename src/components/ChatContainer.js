@@ -18,12 +18,12 @@ const StyledChat = styled.div`
   }
 `;
 
-const ChatContainer = ({ messages, submitMessage, email }) => {
+const ChatContainer = ({ messages, submitMessage, userName }) => {
 
   return (
     <>
       <StyledChat>
-        <li>Welcome to PairMe {email ? `${email}!` : "user!"}</li>
+        <li>Welcome to PairMe {userName ? `${userName}!` : "user!"}</li>
         {messages.map(msg => <Message msg={msg} key={msg.id} />)}
       </StyledChat>
       <ChatInput submitMessage={submitMessage} />
