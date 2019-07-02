@@ -12,11 +12,11 @@ const StyledInput = styled.form`
   input {
     width: 70%;
     border: 1px solid black;
-    border-right: 0px;
   }
   button {
-    width: 30%;
+    width: 15%;
     border: 1px solid black;
+    border-left: 0px;
   }
 `
 
@@ -33,6 +33,7 @@ const ChatInput = ({submitMessage }) => {
         placeholder="Type your message..."
         value={message} />
       <button type="submit" >Send</button>
+      <button type="button" >Pair</button>
     </StyledInput>
   )
 }

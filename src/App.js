@@ -20,6 +20,7 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
+<<<<<<< HEAD
   const [socket] = useState(io.connect("http://localhost:5000"));
   const [userEmail, setUserEmail] = useState("");
   const [emailRecieved, setEmailRecieved] = useState(false);
@@ -31,6 +32,20 @@ const App = () => {
     console.log(socket.id);
     socket.on("message", msg => setMessages([...messages, msg]));
   }, [messages, socket]);
+=======
+
+  const [userEmail, setUserEmail] = useState('')
+  const [userName, setUserName] = useState('')
+  const [userMeetingUrl, setUserMeetingUrl] = useState('')
+  const [emailRecieved, setEmailRecieved] = useState(true)
+  const [messages, setMessages] = useState([])
+
+  socket.on("message", msg => setMessages([...messages, msg]))
+  socket.on("socketid", socketid => console.log(socketid, "socketid"));
+  socket.on("connections count", connectionsCount =>
+    console.log(connectionsCount)
+  );
+>>>>>>> cab1a610b8d4f11f421847b0f1764f31e9932227
   const submitMessage = (e, message) => {
     e.preventDefault();
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
