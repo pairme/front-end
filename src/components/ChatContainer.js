@@ -29,7 +29,7 @@ const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair
         <div className="users">{totalUsers} Currently Connected</div>
         <li>Welcome to PairMe {userName ? `${userName}!` : "user!"}</li>
         {messages.map(msg => (
-          <Message msg={msg} key={msg.id} />
+          <Message msg={msg} userName={userName} key={msg.id} />
         ))}
       </StyledChat>
       <ChatInput submitMessage={submitMessage} makePair={makePair} />
