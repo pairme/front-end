@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const StyledUserInfoInput = styled.form`
   width: 60%;
@@ -10,7 +10,7 @@ const StyledUserInfoInput = styled.form`
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  label{
+  label {
     width: 70%;
     text-align: center;
     font-size: 2rem;
@@ -23,14 +23,14 @@ const StyledUserInfoInput = styled.form`
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid white;
-    text-align:center;
+    text-align: center;
     font-size: 2rem;
     background-color: #37346e;
     color: white;
     padding-bottom: 10px;
     margin-bottom: 80px;
-    &:focus { 
-      outline:none;
+    &:focus {
+      outline: none;
     }
   }
   .button {
@@ -38,6 +38,7 @@ const StyledUserInfoInput = styled.form`
     margin: 30px;
     height: 40px;
     display: flex;
+    visibility: hidden;
     align-items: center;
     justify-content: center;
     border: none;
@@ -47,15 +48,36 @@ const StyledUserInfoInput = styled.form`
     box-sizing: border-box;
     cursor: pointer;
   }
-`
+`;
 
-const UserInfoInput = ({ userName, setUserName, userMeetingUrl, setUserMeetingUrl, setLoggedIn }) => (
+const UserInfoInput = ({
+  userName,
+  setUserName,
+  userMeetingUrl,
+  setUserMeetingUrl,
+  setLoggedIn
+}) => (
   <StyledUserInfoInput onSubmit={() => setLoggedIn(true)}>
     <label>Choose A NickName</label>
-    <input onChange={(e) => setUserName(e.target.value)} value={userName} autoFocus />
+    <input
+      onChange={e => setUserName(e.target.value)}
+      value={userName}
+      autoFocus
+      type="text"
+    />
     <label>Meeting URL?</label>
-    <input onChange={(e) => setUserMeetingUrl(e.target.value)} value={userMeetingUrl} />
-    <p className="button" onClick={() => setLoggedIn(true)}>Enter Queue!</p>
-  </StyledUserInfoInput>)
+    <input
+      onChange={e => setUserMeetingUrl(e.target.value)}
+      value={userMeetingUrl}
+      type="text"
+    />
+    <input
+      type="submit"
+      className="button"
+      onClick={() => setLoggedIn(true)}
+      value=""
+    />
+  </StyledUserInfoInput>
+);
 
-export default UserInfoInput
+export default UserInfoInput;
