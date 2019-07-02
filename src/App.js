@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from 'axios';
 import socket from "./socket";
 
 import ChatContainer from "./components/ChatContainer";
@@ -20,11 +21,13 @@ const StyledApp = styled.div`
   }
 `;
 
+const url = 'https://herokucarlo.herokuapp.com/getuserinfo'
 
 const App = () => {
 
   const [userEmail, setUserEmail] = useState('')
-  const [emailRecieved, setEmailRecieved] = useState(true)
+  const [userData, setUserData] = useState({})
+  const [emailRecieved, setEmailRecieved] = useState(false)
   const [messages, setMessages] = useState([])
 
   socket.on("message", msg => setMessages([...messages, msg]))
@@ -33,8 +36,21 @@ const App = () => {
     e.preventDefault();
     const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1 };
     socket.emit("message", newMessage);
-
   };
+  const zoomEmailReq = () => {
+    axios.post(url, userEmail)
+      .then((res) => {
+        // handle success
+        console.log(res.data);
+        // setUserData({...res.data})
+        // setEmailRecieved(true)
+        // console.log(userData)
+      })
+      .catch((err) => {
+        // handle error
+        console.log(err);
+      })
+  }
   return (
     <StyledApp className="App">
       <h1>PairMe</h1>
@@ -42,7 +58,7 @@ const App = () => {
         <EmailInput
           email={userEmail}
           setEmail={setUserEmail}
-          setEmailRecieved={setEmailRecieved}
+          zoomEmailReq={zoomEmailReq}
         />)
         : (
           <ChatContainer submitMessage={submitMessage} email={userEmail} messages={messages} />)}
