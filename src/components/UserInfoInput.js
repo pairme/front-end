@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledUserInfoInput = styled.form`
@@ -10,6 +10,22 @@ const StyledUserInfoInput = styled.form`
   flex-flow: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  padding-top: 100px;
+  .error{
+    background-color: red;
+    width: 60%;
+    height: 100px;
+    background-color: lightpink;
+    color:red;
+    opacity: .5;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position:absolute;
+    top: 0;
+  }
   label {
     width: 70%;
     text-align: center;
@@ -56,32 +72,35 @@ const UserInfoInput = ({
   userMeetingUrl,
   setUserMeetingUrl,
   setLoggedIn
-}) => (
-  <StyledUserInfoInput
-    onSubmit={() => {
-      if (!userName || !userMeetingUrl) {
-        alert("one of the fields cannot be empty");
-        setLoggedIn(false);
-      } else {
-        setLoggedIn(true);
-      }
-    }}
-  >
-    <label>Choose A NickName</label>
-    <input
-      onChange={e => setUserName(e.target.value)}
-      value={userName}
-      autoFocus
-      type="text"
-    />
-    <label>Meeting URL?</label>
-    <input
-      onChange={e => setUserMeetingUrl(e.target.value)}
-      value={userMeetingUrl}
-      type="text"
-    />
-    <input type="submit" className="button" value="" />
-  </StyledUserInfoInput>
-);
+}) => {
+  const [error, setError] = useState(false)
+  return (
+    <StyledUserInfoInput
+      onSubmit={() => {
+        if (!userName || !userMeetingUrl) {
+          setLoggedIn(false);
+        } else {
+          setLoggedIn(true);
+        }
+      }}
+    >
+      <div className="error">Please fill in both fields</div>
+      <label>Choose A NickName</label>
+      <input
+        onChange={e => setUserName(e.target.value)}
+        value={userName}
+        autoFocus
+        type="text"
+      />
+      <label>Meeting URL?</label>
+      <input
+        onChange={e => setUserMeetingUrl(e.target.value)}
+        value={userMeetingUrl}
+        type="text"
+      />
+      <input type="submit" className="button" value="" />
+    </StyledUserInfoInput>
+  )
+};
 
 export default UserInfoInput;
