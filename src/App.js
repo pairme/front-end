@@ -26,6 +26,7 @@ const App = () => {
   const [userName, setUserName] = useState("");
   const [userMeetingUrl, setUserMeetingUrl] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [messages, setMessages] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [socketID, setSocketID] = useState('');
@@ -33,6 +34,7 @@ const App = () => {
   socket.on("message", msg => setMessages([...messages, msg]));
   socket.on("socketid", socketid => setSocketID(socketid));
   socket.on("private message", msg => setMessages([...messages, msg]));
+  socket.on("button disabled", () => setButtonDisabled(true));
   socket.on("connections count", connectionsCount =>
     setTotalUsers(connectionsCount)
   );
@@ -45,7 +47,12 @@ const App = () => {
     e.preventDefault();
     const payload = { url: userMeetingUrl, socketid: socketID }
     axios
-      .post(`${serverURL}makepair`, payload).then(res => console.log(res.status)).catch(err => console.log(err))
+      .post(`${serverURL}makepair`, payload)
+      .then(res => {
+        console.log(res.status)
+        setButtonDisabled(true)
+      })
+      .catch(err => console.log(err))
   };
   return (
     <StyledApp className="App">
@@ -66,6 +73,8 @@ const App = () => {
             messages={messages}
             totalUsers={totalUsers}
             makePair={makePair}
+            buttonDisabled={buttonDisabled}
+            totalUsers={totalUsers}
           />
         )}
     </StyledApp>

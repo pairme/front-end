@@ -21,7 +21,7 @@ const StyledChat = styled.div`
   }
 `;
 
-const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair, socket }) => {
+const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair, socket, buttonDisabled, setButtonDisabled, totalUser }) => {
 
   useEffect(() => {
     socket.emit('add connection', true)
@@ -37,7 +37,7 @@ const ChatContainer = ({ messages, submitMessage, userName, totalUsers, makePair
           <Message msg={msg} userName={userName} key={msg.id} />
         ))}
       </StyledChat>
-      <ChatInput submitMessage={submitMessage} makePair={makePair} />
+      <ChatInput buttonDisabled={buttonDisabled} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
     </>
   );
 };
