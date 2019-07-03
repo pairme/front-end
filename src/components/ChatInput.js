@@ -12,7 +12,7 @@ const StyledInput = styled.form`
   align-items: center;
   justify-content: space-between;
   input {
-    width: 70%;
+    width: 87%;
     height: 60%;
     box-sizing: border-box;
     font-size: 1rem;
@@ -21,7 +21,7 @@ const StyledInput = styled.form`
     }
   }
   button {
-    width: 12%;
+    width: 6%;
     height: 60%;
     background-color: #b6eb1a;
     border-left: 0px;
