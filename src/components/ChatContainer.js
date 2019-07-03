@@ -65,7 +65,7 @@ const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, bu
 
       </StyledChat>
       <StyledTypers className="typers">
-        <p>Typing:{spaceVar}</p>{typers.map(typer => <p key={typer}>{typer}{spaceVar}</p>)}
+        Typing:{typers.map(typer => <p key={typer}>{typer}{' '}</p>)}
       </StyledTypers>
       <ChatInput buttonDisabled={buttonDisabled} userName={userName} socket={socket} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
     </>
