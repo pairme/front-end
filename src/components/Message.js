@@ -5,8 +5,9 @@ const StyledMessage = styled.li`
   width: 100%;
   list-style-type: none;
   font-size: 1rem;
-  span {
+  .user {
     font-weight: bold;
+    color:blue;
     .grey{
       color: #9795b8;
     }
@@ -43,7 +44,7 @@ const Message = ({ msg }) => {
     <>
       {name ?
         <StyledMessage>
-          <span className={colors[Math.floor(Math.random() * colors.length)]}>{name}: </span>
+          <span className={`user ${colors[Math.floor(Math.random() * colors.length)]}`}>{name}: </span>
           {message}
         </StyledMessage>
         :
