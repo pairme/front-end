@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import logo from '../pairme-logo.png'
@@ -30,24 +30,30 @@ const StyledChat = styled.div`
 `;
 
 const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, buttonDisabled, totalUsers }) => {
+  const [typers, setTypers] = useState([])
 
   useEffect(() => {
     socket.emit('add connection', userName)
-    console.log('chat container rerendered!!!')
+    console.log('add connection effect rerendered!!!')
   }, [socket, userName])
-
+  useEffect(() => {
+    socket.on('typing users', users => setTypers([...users]))
+    console.log('typers', typers)
+    console.log('typing effect rerendered!!!')
+  }, [socket])
   return (
     <>
       <StyledChat>
         <div className="header">
-          <img src={logo} alt="pairme logo"/>
+          <img src={logo} alt="pairme logo" />
         </div>
         <p>{totalUsers} Users Connected</p>
         {messages.map(msg => (
           <Message msg={msg} userName={userName} key={msg.id} />
         ))}
+        {typers.map(typer => <li>{typer}</li>)}
       </StyledChat>
-      <ChatInput buttonDisabled={buttonDisabled} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
+      <ChatInput buttonDisabled={buttonDisabled} userName={userName} socket={socket} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const StyledMessage = styled.li`
@@ -39,13 +39,6 @@ const StyledAdminMessage = styled.li`
 const Message = ({ msg }) => {
 
   const { message, name } = msg
-  const colors = ["grey", "grey-neutral", "grey-dark", "navy", "lime", "coral"]
-  const [color, setColor] = useState('')
-
-  useEffect(() => {
-
-    setColor(`${colors[Math.floor(Math.random() * colors.length)]}`)
-  }, [])
   return (
     <>
       {name ?

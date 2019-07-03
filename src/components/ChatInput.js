@@ -33,11 +33,19 @@ const StyledInput = styled.form`
 `
 let timeout = null;
 
-const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers }) => {
+const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers, socket, userName }) => {
   const [message, setMessage] = useState('')
   const messageHandler = (e) => {
     submitMessage(e, message)
     setMessage('')
+  }
+  const emitTyping = () => {
+    socket.emit('user typing', userName);
+    console.log(`emit typing`)
+  }
+  const emitStopTyping = () => {
+    socket.emit('user done typing', userName);
+    console.log(`emit stop typing`)
   }
   return (
     <StyledInput onSubmit={messageHandler}>
@@ -45,11 +53,11 @@ const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers }) => {
         onChange={e => setMessage(e.target.value)}
         placeholder="Type your message..."
         value={message}
-        onKeyDown={e => console.log("keydown")}
-        onKeyUp={e => {
+        onKeyDown={emitTyping}
+        onKeyUp={() => {
           clearTimeout(timeout);
           timeout = setTimeout(function () {
-            console.log("he stopped typing");
+            emitStopTyping();
           }, 500);}}
         />
             < button type = "submit" > CHAT</button>
