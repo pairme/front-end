@@ -7,7 +7,7 @@ import ChatInput from "./ChatInput.js";
 
 const StyledChat = styled.div`
   width: 100%;
-  height: 92%;
+  height: 86%;
   box-sizing: border-box;
   background-color: white;
   padding: 0 20px;
@@ -28,7 +28,18 @@ const StyledChat = styled.div`
     text-align: center;
   }
 `;
-
+const StyledTypers = styled.div`
+  width: 100%;
+  height: 4%;
+  background-color: grey;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding:20px;
+  font-size: .8rem;
+  box-sizing: border-box;
+`;
+const spaceVar = ' '
 const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, buttonDisabled, totalUsers }) => {
   const [typers, setTypers] = useState([])
 
@@ -51,8 +62,11 @@ const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, bu
         {messages.map(msg => (
           <Message msg={msg} userName={userName} key={msg.id} />
         ))}
-        {typers.map(typer => <li>{typer}</li>)}
+
       </StyledChat>
+      <StyledTypers className="typers">
+        <p>Typing:{spaceVar}</p>{typers.map(typer => <p key={typer}>{typer}{spaceVar}</p>)}
+      </StyledTypers>
       <ChatInput buttonDisabled={buttonDisabled} userName={userName} socket={socket} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
     </>
   );
