@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const StyledMessage = styled.li`
@@ -7,7 +7,7 @@ const StyledMessage = styled.li`
   font-size: 1rem;
   .user {
     font-weight: bold;
-    color:blue;
+    color: blue;
     .grey{
       color: #9795b8;
     }
@@ -37,14 +37,20 @@ const StyledAdminMessage = styled.li`
 `
 
 const Message = ({ msg }) => {
+
   const { message, name } = msg
   const colors = ["grey", "grey-neutral", "grey-dark", "navy", "lime", "coral"]
+  const [color, setColor] = useState('')
 
+  useEffect(() => {
+
+    setColor(`${colors[Math.floor(Math.random() * colors.length)]}`)
+  }, [])
   return (
     <>
       {name ?
         <StyledMessage>
-          <span className={`user ${colors[Math.floor(Math.random() * colors.length)]}`}>{name}: </span>
+          <span className='user'>{name}: </span>
           {message}
         </StyledMessage>
         :
