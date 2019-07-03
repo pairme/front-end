@@ -27,7 +27,7 @@ const serverURL = process.env.NODE_ENV === "production" ? `https://herokucarlo.h
 const App = () => {
   const [userName, setUserName] = useState("");
   const [userMeetingUrl, setUserMeetingUrl] = useState("");
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [messages, setMessages] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
