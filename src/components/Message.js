@@ -37,17 +37,13 @@ const StyledAdminMessage = styled.li`
 
 const Message = ({ msg }) => {
   const { message, name } = msg
-  const getColor = () => {
-    const colors = ["grey", "grey-neutral", "grey-dark", "navy", "lime", "coral"]
-    const chosen = colors[Math.floor(Math.random() * colors.length)];
-    console.log(chosen)
-    return chosen;
-  }
+  const colors = ["grey", "grey-neutral", "grey-dark", "navy", "lime", "coral"]
+
   return (
     <>
       {name ?
         <StyledMessage>
-          <span className={getColor()}>{name}: </span>
+          <span className={colors[Math.floor(Math.random() * colors.length)]}>{name}: </span>
           {message}
         </StyledMessage>
         :
