@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const StyledInput = styled.form`
   width: 100%;
@@ -7,7 +7,7 @@ const StyledInput = styled.form`
   width: 96%;
   height: 8%;
   box-sizing: border-box;
-  display: flex; 
+  display: flex;
   flex-flow: row;
   align-items: center;
   justify-content: space-between;
@@ -30,23 +30,34 @@ const StyledInput = styled.form`
       outline: none;
     }
   }
-`
+`;
 let timeout = null;
 
-const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers, socket, userName }) => {
-  const [message, setMessage] = useState('')
-  const messageHandler = (e) => {
-    submitMessage(e, message)
-    setMessage('')
-  }
+const ChatInput = ({
+  submitMessage,
+  makePair,
+  buttonDisabled,
+  totalUsers,
+  socket,
+  userName
+}) => {
+  const [message, setMessage] = useState("");
+  const messageHandler = e => {
+    e.preventDefault();
+    if (!message) {
+      return;
+    }
+    submitMessage(e, message);
+    setMessage("");
+  };
   const emitTyping = () => {
-    socket.emit('user typing', userName);
-    console.log(`emit typing`)
-  }
+    socket.emit("user typing", userName);
+    console.log(`emit typing`);
+  };
   const emitStopTyping = () => {
-    socket.emit('user done typing', userName);
-    console.log(`emit stop typing`)
-  }
+    socket.emit("user done typing", userName);
+    console.log(`emit stop typing`);
+  };
   return (
     <StyledInput onSubmit={messageHandler}>
       <input
@@ -56,16 +67,23 @@ const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers, socket
         onKeyDown={emitTyping}
         onKeyUp={() => {
           clearTimeout(timeout);
-          timeout = setTimeout(function () {
+          timeout = setTimeout(function() {
             emitStopTyping();
-          }, 500);}}
-        />
-            < button type = "submit" > CHAT</button>
-      {buttonDisabled || totalUsers < 2 ? <button type="button" disabled>PAIR</button> : <button type="button" onClick={makePair} >PAIR</button>}
-
-
+          }, 500);
+        }}
+      />
+      <button type="submit"> CHAT</button>
+      {buttonDisabled || totalUsers < 2 ? (
+        <button type="button" disabled>
+          PAIR
+        </button>
+      ) : (
+        <button type="button" onClick={makePair}>
+          PAIR
+        </button>
+      )}
     </StyledInput>
-  )
-}
+  );
+};
 
-export default ChatInput
+export default ChatInput;
