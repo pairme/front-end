@@ -31,6 +31,7 @@ const StyledInput = styled.form`
     }
   }
 `
+let timeout = null;
 
 const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers }) => {
   const [message, setMessage] = useState('')
@@ -43,8 +44,15 @@ const ChatInput = ({ submitMessage, makePair, buttonDisabled, totalUsers }) => {
       <input
         onChange={e => setMessage(e.target.value)}
         placeholder="Type your message..."
-        value={message} />
-      <button type="submit" >CHAT</button>
+        value={message}
+        onKeyDown={e => console.log("keydown")}
+        onKeyUp={e => {
+          clearTimeout(timeout);
+          timeout = setTimeout(function () {
+            console.log("he stopped typing");
+          }, 500);}}
+        />
+            < button type = "submit" > CHAT</button>
       {buttonDisabled || totalUsers < 2 ? <button type="button" disabled>PAIR</button> : <button type="button" onClick={makePair} >PAIR</button>}
 
 
