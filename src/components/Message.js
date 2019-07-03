@@ -6,7 +6,6 @@ const StyledMessage = styled.li`
   list-style-type: none;
   font-size: 1rem;
   span {
-    color: blue;
     font-weight: bold;
     .grey{
       color: #9795b8;
@@ -40,7 +39,9 @@ const Message = ({ msg }) => {
   const { message, name } = msg
   const getColor = () => {
     const colors = ["grey", "grey-neutral", "grey-dark", "navy", "lime", "coral"]
-    return colors[Math.floor(Math.random() * colors.length)];
+    const chosen = colors[Math.floor(Math.random() * colors.length)];
+    console.log(chosen)
+    return chosen;
   }
   return (
     <>
