@@ -36,6 +36,7 @@ const App = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [socketID, setSocketID] = useState("");
   const [totalAdmins, setTotalAdmins] = useState(0);
+  const [allUsers, setAllUsers] = useState([]);
 
   socket.on("message", msg => setMessages([...messages, msg]));
   socket.on("socketid", socketid => setSocketID(socketid));
@@ -44,6 +45,9 @@ const App = () => {
   socket.on("connections count", connectionsCount =>
     setTotalUsers(connectionsCount)
   );
+  socket.on("get all users", allUsersNames => {
+    setAllUsers(allUsersNames);
+  });
   socket.on("admins connected", numAdmins => setTotalAdmins(numAdmins));
   const submitMessage = (e, message) => {
     e.preventDefault();

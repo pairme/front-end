@@ -62,6 +62,7 @@ const ChatContainer = ({
     } else {
       socket.emit("add connection", userName);
     }
+    socket.emit("all users");
   }, [socket, userMeetingUrl, userName]);
   useEffect(() => {
     socket.on("typing users", users => setTypers([...users]));
