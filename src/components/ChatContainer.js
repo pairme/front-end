@@ -5,6 +5,7 @@ import logo from "../pairme-logo.png";
 import { Fade } from "react-reveal";
 import Message from "./Message";
 import ChatInput from "./ChatInput.js";
+import { Socket } from "net";
 
 const StyledChat = styled.div`
   width: 100%;
@@ -48,14 +49,20 @@ const ChatContainer = ({
   makePair,
   socket,
   buttonDisabled,
-  totalUsers
+  totalUsers,
+  totalAdmins,
+  userMeetingUrl
 }) => {
   const [typers, setTypers] = useState([]);
 
   useEffect(() => {
-    socket.emit("add connection", userName);
     console.log("add connection effect rerendered!!!");
-  }, [socket, userName]);
+    if (userMeetingUrl.toLowerCase() === "pmcs18") {
+      socket.emit("add admin", userName);
+    } else {
+      socket.emit("add connection", userName);
+    }
+  }, [socket, userMeetingUrl, userName]);
   useEffect(() => {
     socket.on("typing users", users => setTypers([...users]));
     console.log("typing effect rerendered!!!");
@@ -66,7 +73,8 @@ const ChatContainer = ({
         <div className="header">
           <img src={logo} alt="pairme logo" />
         </div>
-        <p>{totalUsers} Users Connected</p>
+        <p>{totalUsers} User looking pairs</p>
+        <p>{totalAdmins} Admins connected</p>
         {messages.map(msg => (
           <Message msg={msg} userName={userName} key={msg.id} />
         ))}
