@@ -58,9 +58,8 @@ const ChatContainer = ({
   }, [socket, userName]);
   useEffect(() => {
     socket.on("typing users", users => setTypers([...users]));
-    console.log("typers", typers);
     console.log("typing effect rerendered!!!");
-  }, [socket, typers]);
+  }, [socket]);
   return (
     <>
       <StyledChat>
@@ -76,7 +75,10 @@ const ChatContainer = ({
         <StyledTypers className="typers">
           Typing:
           {typers.map(typer => (
-            <p key={typer}>{typer} </p>
+            <p key={typer}>
+              {typer}
+              {"   "}{" "}
+            </p>
           ))}
         </StyledTypers>
       </>
