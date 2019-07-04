@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import logo from '../pairme-logo.png'
+import logo from "../pairme-logo.png";
+import { Fade } from "react-reveal";
 import Message from "./Message";
 import ChatInput from "./ChatInput.js";
 
@@ -18,7 +19,7 @@ const StyledChat = styled.div`
   }
   .header {
     width: 100%;
-    display: flex; 
+    display: flex;
     justify-content: center;
     padding-top: 10px;
   }
@@ -35,23 +36,31 @@ const StyledTypers = styled.div`
   display: flex;
   flex-flow: row;
   align-items: center;
-  padding:20px;
-  font-size: .8rem;
+  padding: 20px;
+  font-size: 0.8rem;
   box-sizing: border-box;
 `;
-const spaceVar = ' '
-const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, buttonDisabled, totalUsers }) => {
-  const [typers, setTypers] = useState([])
+const spaceVar = " ";
+const ChatContainer = ({
+  messages,
+  submitMessage,
+  userName,
+  makePair,
+  socket,
+  buttonDisabled,
+  totalUsers
+}) => {
+  const [typers, setTypers] = useState([]);
 
   useEffect(() => {
-    socket.emit('add connection', userName)
-    console.log('add connection effect rerendered!!!')
-  }, [socket, userName])
+    socket.emit("add connection", userName);
+    console.log("add connection effect rerendered!!!");
+  }, [socket, userName]);
   useEffect(() => {
-    socket.on('typing users', users => setTypers([...users]))
-    console.log('typers', typers)
-    console.log('typing effect rerendered!!!')
-  }, [socket])
+    socket.on("typing users", users => setTypers([...users]));
+    console.log("typers", typers);
+    console.log("typing effect rerendered!!!");
+  }, [socket, typers]);
   return (
     <>
       <StyledChat>
@@ -62,12 +71,23 @@ const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, bu
         {messages.map(msg => (
           <Message msg={msg} userName={userName} key={msg.id} />
         ))}
-
       </StyledChat>
-      <StyledTypers className="typers">
-        Typing:{typers.map(typer => <p key={typer}>{typer}{' '}</p>)}
-      </StyledTypers>
-      <ChatInput buttonDisabled={buttonDisabled} userName={userName} socket={socket} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
+      <>
+        <StyledTypers className="typers">
+          Typing:
+          {typers.map(typer => (
+            <p key={typer}>{typer} </p>
+          ))}
+        </StyledTypers>
+      </>
+      <ChatInput
+        buttonDisabled={buttonDisabled}
+        userName={userName}
+        socket={socket}
+        totalUsers={totalUsers}
+        submitMessage={submitMessage}
+        makePair={makePair}
+      />
     </>
   );
 };
