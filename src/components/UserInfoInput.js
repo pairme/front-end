@@ -2,6 +2,51 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Fade } from "react-reveal";
 
+
+const UserInfoInput = ({
+  userName,
+  setUserName,
+  userMeetingUrl,
+  setUserMeetingUrl,
+  setLoggedIn
+}) => {
+  const [error, setError] = useState(false);
+  return (
+    <StyledUserInfoInput
+      onSubmit={e => {
+        e.preventDefault();
+        if (!userName || !userMeetingUrl) {
+          setLoggedIn(false);
+          setError(true);
+        } else {
+          setLoggedIn(true);
+        }
+      }}
+    >
+      <Fade top when={error}>
+        <div className="error">Please fill in both fields</div>
+      </Fade>
+
+      <label>Choose A NickName</label>
+      <input
+        onChange={e => setUserName(e.target.value)}
+        value={userName}
+        autoFocus
+        type="text"
+      />
+      <label>Meeting URL?</label>
+      <input
+        onChange={e => setUserMeetingUrl(e.target.value)}
+        value={userMeetingUrl}
+        type="text"
+      />
+      <input type="submit" className="button" value="" />
+    </StyledUserInfoInput>
+  );
+};
+
+export default UserInfoInput;
+
 const StyledUserInfoInput = styled.form`
   width: 60%;
   height: 100%;
@@ -66,47 +111,3 @@ const StyledUserInfoInput = styled.form`
     cursor: pointer;
   }
 `;
-
-const UserInfoInput = ({
-  userName,
-  setUserName,
-  userMeetingUrl,
-  setUserMeetingUrl,
-  setLoggedIn
-}) => {
-  const [error, setError] = useState(false);
-  return (
-    <StyledUserInfoInput
-      onSubmit={e => {
-        e.preventDefault();
-        if (!userName || !userMeetingUrl) {
-          setLoggedIn(false);
-          setError(true);
-        } else {
-          setLoggedIn(true);
-        }
-      }}
-    >
-      <Fade top when={error}>
-        <div className="error">Please fill in both fields</div>
-      </Fade>
-
-      <label>Choose A NickName</label>
-      <input
-        onChange={e => setUserName(e.target.value)}
-        value={userName}
-        autoFocus
-        type="text"
-      />
-      <label>Meeting URL?</label>
-      <input
-        onChange={e => setUserMeetingUrl(e.target.value)}
-        value={userMeetingUrl}
-        type="text"
-      />
-      <input type="submit" className="button" value="" />
-    </StyledUserInfoInput>
-  );
-};
-
-export default UserInfoInput;

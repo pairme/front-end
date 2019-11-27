@@ -54,15 +54,15 @@ const App = () => {
           setLoggedIn={setLoggedIn}
         />
       ) : (
-            <ChatContainer
-              socket={socket}
-              submitMessage={submitMessage}
-              userName={userName}
-              messages={messages}
-              totalUsers={totalUsers}
-              makePair={makePair}
-              buttonDisabled={buttonDisabled}
-            />
+          <ChatContainer
+            socket={socket}
+            submitMessage={submitMessage}
+            userName={userName}
+            messages={messages}
+            totalUsers={totalUsers}
+            makePair={makePair}
+            buttonDisabled={buttonDisabled}
+          />
         )}
     </StyledApp>
   );

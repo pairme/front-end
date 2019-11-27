@@ -67,7 +67,7 @@ const ChatInput = ({
         onKeyDown={emitTyping}
         onKeyUp={() => {
           clearTimeout(timeout);
-          timeout = setTimeout(function() {
+          timeout = setTimeout(function () {
             emitStopTyping();
           }, 500);
         }}
@@ -78,10 +78,10 @@ const ChatInput = ({
           PAIR
         </button>
       ) : (
-        <button type="button" onClick={makePair}>
-          PAIR
+          <button type="button" onClick={makePair}>
+            PAIR
         </button>
-      )}
+        )}
     </StyledInput>
   );
 };

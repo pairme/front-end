@@ -33,7 +33,14 @@ const ChatContainer = ({ messages, submitMessage, userName, makePair, socket, bu
       <StyledTypers className="typers">
         Typing:{typers.map(typer => <p key={typer}>{typer}{' '}</p>)}
       </StyledTypers>
-      <ChatInput buttonDisabled={buttonDisabled} userName={userName} socket={socket} totalUsers={totalUsers} submitMessage={submitMessage} makePair={makePair} />
+      <ChatInput
+        buttonDisabled={buttonDisabled}
+        userName={userName} 
+        socket={socket} 
+        totalUsers={totalUsers} 
+        submitMessage={submitMessage} 
+        makePair={makePair} 
+      />
     </>
   );
 };
