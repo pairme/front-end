@@ -1,6 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 
+
+const Message = ({ msg }) => {
+
+  const { message, name } = msg
+  return (
+    <>
+      {name ?
+        <StyledMessage>
+          <span className='user'>{name}: </span>
+          {message}
+        </StyledMessage>
+        :
+        <StyledAdminMessage>{message}</StyledAdminMessage>
+      }
+
+    </>
+  )
+}
+
+export default Message
+
 const StyledMessage = styled.li`
   width: 100%;
   list-style-type: none;
@@ -28,6 +49,7 @@ const StyledMessage = styled.li`
     }
   }
 `
+
 const StyledAdminMessage = styled.li`
   width: 100%;
   color: red;
@@ -35,23 +57,3 @@ const StyledAdminMessage = styled.li`
   font-size: 1rem;
   text-align: center;
 `
-
-const Message = ({ msg }) => {
-
-  const { message, name } = msg
-  return (
-    <>
-      {name ?
-        <StyledMessage>
-          <span className='user'>{name}: </span>
-          {message}
-        </StyledMessage>
-        :
-        <StyledAdminMessage>{message}</StyledAdminMessage>
-      }
-
-    </>
-  )
-}
-
-export default Message
