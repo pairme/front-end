@@ -6,21 +6,7 @@ import socket from "./socket";
 import ChatContainer from "./components/ChatContainer";
 import UserInfoInput from "./components/UserInfoInput";
 
-const StyledApp = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
-  box-sizing: border-box;
-  background-color: #37346e;
-  h1 {
-    width: 60%;
-    font-size: 4rem;
-    margin-bottom: 0;
-  }
-`;
+
 
 const serverURL = process.env.NODE_ENV === "production" ? `https://herokucarlo.herokuapp.com/` : `http://localhost:5000/`
 
@@ -83,3 +69,19 @@ const App = () => {
 };
 
 export default App;
+
+const StyledApp = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  box-sizing: border-box;
+  background-color: #37346e;
+  h1 {
+    width: 60%;
+    font-size: 4rem;
+    margin-bottom: 0;
+  }
+`;
