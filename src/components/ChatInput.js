@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { colors } from '../extras/colors';
+
 
 const StyledInput = styled.form`
   width: 100%;
@@ -23,7 +25,7 @@ const StyledInput = styled.form`
   button {
     width: 6%;
     height: 60%;
-    background-color: #b6eb1a;
+    background-color: ${colors.lime};
     border-left: 0px;
     font-size: 1rem;
     &:focus {

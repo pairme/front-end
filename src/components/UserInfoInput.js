@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Fade } from "react-reveal";
-
+import { colors } from '../extras/colors'
 
 const UserInfoInput = ({
   userName,
@@ -87,7 +87,7 @@ const StyledUserInfoInput = styled.form`
     border-bottom: 2px solid white;
     text-align: center;
     font-size: 2rem;
-    background-color: #37346e;
+    background-color: ${colors.navy};
     color: white;
     padding-bottom: 10px;
     margin-bottom: 80px;
@@ -105,8 +105,8 @@ const StyledUserInfoInput = styled.form`
     justify-content: center;
     border: none;
     font-size: 2rem;
-    color: #b6eb1a;
-    background-color: #37346e;
+    color: ${colors.lime};
+    background-color: ${colors.navy};
     box-sizing: border-box;
     cursor: pointer;
   }

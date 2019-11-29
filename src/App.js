@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import socket from "./socket";
-
+import { colors } from './extras/colors'
 import ChatContainer from "./components/ChatContainer";
 import UserInfoInput from "./components/UserInfoInput";
+import { from } from "rxjs";
 
 
 
@@ -78,7 +79,7 @@ const StyledApp = styled.div`
   justify-content: center;
   flex-flow: row wrap;
   box-sizing: border-box;
-  background-color: #37346e;
+  background-color: ${colors.navy};
   h1 {
     width: 60%;
     font-size: 4rem;
