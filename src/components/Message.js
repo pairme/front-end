@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const Message = ({ msg }) => {
 
   const { message, name } = msg
+
   return (
     <>
       {name ?
