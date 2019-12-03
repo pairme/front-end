@@ -27,7 +27,7 @@ const UserInfoInput = ({
         <div className="error">Please fill in both fields</div>
       </Fade>
 
-      <label>Choose A NickName</label>
+      <label>Nickname?</label>
       <input
         onChange={e => setUserName(e.target.value)}
         value={userName}
