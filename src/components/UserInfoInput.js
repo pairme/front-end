@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Fade } from "react-reveal";
-import { colors } from '../extras/colors'
+import { colors } from '../extras/colors';
 
 const UserInfoInput = ({
   userName,
   setUserName,
   userMeetingUrl,
   setUserMeetingUrl,
-  setLoggedIn
+  setLoggedIn,
 }) => {
   const [error, setError] = useState(false);
   return (
