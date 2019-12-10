@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const Message = ({ msg }) => {
 
-  const { message, name } = msg
+  const { message, name } = msg;
 
   return (
     <>
@@ -18,7 +18,7 @@ const Message = ({ msg }) => {
       }
     </>
   )
-}
+};
 
 export default Message
 
@@ -30,7 +30,7 @@ const StyledMessage = styled.li`
     font-weight: bold;
     color: blue;
   }
-`
+`;
 
 const StyledAdminMessage = styled.li`
   width: 100%;
@@ -38,4 +38,4 @@ const StyledAdminMessage = styled.li`
   list-style-type: none;
   font-size: 1rem;
   text-align: center;
-`
+`;
