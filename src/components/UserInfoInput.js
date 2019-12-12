@@ -10,18 +10,19 @@ const UserInfoInput = ({
   setUserMeetingUrl,
   setLoggedIn,
 }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!userName || !userMeetingUrl) {
+      setLoggedIn(false);
+      setError(true);
+    } else {
+      setLoggedIn(true);
+    }
+  }
   const [error, setError] = useState(false);
   return (
     <StyledUserInfoInput
-      onSubmit={e => {
-        e.preventDefault();
-        if (!userName || !userMeetingUrl) {
-          setLoggedIn(false);
-          setError(true);
-        } else {
-          setLoggedIn(true);
-        }
-      }}
+      onSubmit={handleSubmit()}
     >
       <Fade top when={error}>
         <div className="error">Please fill in both fields</div>
