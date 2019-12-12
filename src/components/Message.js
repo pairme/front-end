@@ -17,7 +17,7 @@ const Message = ({ msg }) => {
         <StyledAdminMessage>{message}</StyledAdminMessage>
       }
     </>
-  )
+  );
 };
 
 export default Message
