@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import socket from "./socket";
-import { colors } from './extras/colors'
+import { colors } from "./extras/colors";
 import ChatContainer from "./components/ChatContainer";
 import UserInfoInput from "./components/UserInfoInput";
 
-
-
-const serverURL = process.env.NODE_ENV === "production" ? `https://herokucarlo.herokuapp.com/` : `http://localhost:5000/`
+const serverURL =
+  process.env.NODE_ENV === "production"
+    ? `https://herokucarlo.herokuapp.com/`
+    : `http://localhost:5000/`;
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -17,7 +18,7 @@ const App = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [messages, setMessages] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [socketID, setSocketID] = useState('');
+  const [socketID, setSocketID] = useState("");
 
   socket.on("message", msg => setMessages([...messages, msg]));
   socket.on("socketid", socketid => setSocketID(socketid));
@@ -28,23 +29,26 @@ const App = () => {
   );
   const submitMessage = (e, message) => {
     e.preventDefault();
-    const newMessage = { message, id: Math.floor(Math.random() * 1000) + 1, name: userName };
+    const newMessage = {
+      message,
+      id: Math.floor(Math.random() * 1000) + 1,
+      name: userName
+    };
     socket.emit("message", newMessage);
   };
-  const makePair = (e) => {
+  const makePair = e => {
     e.preventDefault();
-    const payload = { url: userMeetingUrl, socketid: socketID }
+    const payload = { url: userMeetingUrl, socketid: socketID };
     axios
       .post(`${serverURL}makepair`, payload)
       .then(res => {
-        console.log(res.status)
-        setButtonDisabled(true)
+        console.log(res.status);
+        setButtonDisabled(true);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
   };
   return (
     <StyledApp className="App">
-
       {!loggedIn ? (
         <UserInfoInput
           setUserName={setUserName}
@@ -54,16 +58,16 @@ const App = () => {
           setLoggedIn={setLoggedIn}
         />
       ) : (
-          <ChatContainer
-            socket={socket}
-            submitMessage={submitMessage}
-            userName={userName}
-            messages={messages}
-            totalUsers={totalUsers}
-            makePair={makePair}
-            buttonDisabled={buttonDisabled}
-          />
-        )}
+        <ChatContainer
+          socket={socket}
+          submitMessage={submitMessage}
+          userName={userName}
+          messages={messages}
+          totalUsers={totalUsers}
+          makePair={makePair}
+          buttonDisabled={buttonDisabled}
+        />
+      )}
     </StyledApp>
   );
 };
